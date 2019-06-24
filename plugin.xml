@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.chinact.mobile.plugin.appmanager" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>AppManager</name>
+	<asset src="www/update" target="update" />
+	<js-module name="AppManager" src="www/AppManager.js">
+		<clobbers target="navigator.appmanager" />
+	</js-module>
+	<dependency id="cordova-plugin-device" />
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="AppManager">
+				<param name="android-package" value="com.chinact.mobile.plugin.appmanager.AppManager" />
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+		</config-file>
+		<config-file parent="/manifest/application" target="AndroidManifest.xml" >
+			<provider android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+            	<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
+        	</provider>
+		</config-file>		
+		<source-file src="src/android/AppManager.java" target-dir="src/com/chinact/mobile/plugin/appmanager" />
+		<resource-file src="src/android/xml/provider_paths.xml" target="res/xml/provider_paths.xml" />
+		<framework src="com.android.support:support-v4:24.1.1+" />
+	</platform>
+	<platform name="ios">
+		<config-file parent="/*" target="config.xml">
+			<feature name="AppManager"><param name="ios-package" value="AppManager" /></feature>
+		</config-file>
+		<config-file parent="LSApplicationQueriesSchemes" target="*-Info.plist">
+            <array></array>
+        </config-file>
+        <source-file src="src/ios/AppManager.h" />
+		<source-file src="src/ios/AppManager.m" />
+	</platform>
+</plugin>

@@ -1,0 +1,19 @@
+{
+  "name": "com.chinact.mobile.plugin.appmanager",
+  "version": "1.0.0",
+  "description": "Install And Manage App",
+  "cordova": {
+    "id": "com.chinact.mobile.plugin.appmanager",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Dante Lee",
+  "license": "ISC"
+}
