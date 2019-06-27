@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin id="com.chinact.mobile.plugin.appmanager" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>AppManager</name>
-	<asset src="www/update" target="update" />
 	<js-module name="AppManager" src="www/AppManager.js">
 		<clobbers target="navigator.appmanager" />
 	</js-module>
