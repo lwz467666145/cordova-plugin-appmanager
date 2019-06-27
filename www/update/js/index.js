@@ -28,14 +28,12 @@ if (topSystemFlag) {
     });
 
 function initPage() {
-    let updateConfig = {
-        basePath: cordova.file.dataDirectory,
-        serverPath: '',
-        updatePath: '',
-        appCode: '',
-        appName: ''
-    }, $background = $('[opt=background]'), $dialog = $('.dialog'),
-        $inner = $('.inner'), $number = $('.number'), $tip = $('.tip'), date, timer;
+    let $background = $('[opt=background]'), $dialog = $('.dialog'), $inner = $('.inner'), $number = $('.number'), $tip = $('.tip'), date, timer,
+        updateConfig = {
+            basePath: cordova.file.dataDirectory,
+            serverPath: '',
+            appCode: ''
+        };
     if (topSystemFlag) {
         navigator.appmanager.getPic(() => {
             $background.attr('src', updateConfig.basePath + 'updates/screen.png');
@@ -56,7 +54,7 @@ function initPage() {
             navigator.splashscreen.hide();
         }, 3000);
         $.ajax({
-            url: updateConfig.updatePath,
+            url: updateConfig.serverPath + 'app/checkUpdate.xhtml',
             type: 'get',
             dataType: 'jsonp',
             jsonp: 'jsoncallback',
@@ -206,7 +204,7 @@ function initPage() {
         timer1 = setTimeout(function () {
             getJson.abort();
         }, 5000);
-        getJson = $.getJSON(updateConfig.serverPath + 'apps/' + updateConfig.appName + '.json', (json) => {
+        getJson = $.getJSON(updateConfig.serverPath + 'appFile/' + updateConfig.appCode + '/file.json', (json) => {
             if (!timer1)
                 clearTimeout(timer1);
             serverJson = json;
@@ -295,7 +293,7 @@ function initPage() {
         const downloadFile = (fileTransfer, childEntry) => {
             if (addFiles.length) {
                 let file = addFiles.splice(0, 1)[0];
-                fileTransfer.download(encodeURI(updateConfig.serverPath + 'apps/' + updateConfig.appName + file.filePath), childEntry.nativeURL + file.filePath, function (fileEntry) {
+                fileTransfer.download(encodeURI(updateConfig.serverPath + 'appFile/' + updateConfig.appCode + '/project/' + file.filePath), childEntry.nativeURL + file.filePath, function (fileEntry) {
                     console.log('Download Finish');
                     getPercent();
                     downloadFile(fileTransfer, childEntry);
